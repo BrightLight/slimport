@@ -4,7 +4,7 @@
 
   public static class AttributesExtensions
   {
-    public static void SetOrUpdateAttribute(this XmlNode xmlNode, string attributeName, string value)
+    public static void SetOrUpdateAttribute(this XmlNode xmlNode, string attributeName, string value, ILogger logger)
     {
       var attribute = xmlNode.Attributes[attributeName];
       if (attribute == null)
@@ -21,10 +21,15 @@
       if (string.IsNullOrEmpty(value))
       {
         xmlNode.Attributes.Remove(attribute);
+        logger?.Delete(attributeName);
       }
       else
       {
-        attribute.Value = value;
+        if (attribute.Value != value)
+        {
+          logger?.Update(attributeName, attribute.Value, value);
+          attribute.Value = value;
+        }
       }
     }
 

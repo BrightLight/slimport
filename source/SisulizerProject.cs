@@ -30,7 +30,7 @@
           this.content.Add(context, langRow);
         }
 
-        Console.WriteLine(context);
+        ////Console.WriteLine(context);
       }
     }
 
