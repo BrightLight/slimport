@@ -1,5 +1,7 @@
 ﻿namespace slimport
 {
+  using System;
+  using System.Linq;
   using System.Xml;
 
   public static class AttributesExtensions
@@ -33,8 +35,9 @@
       }
     }
 
-    public static string GetValueOrDefault(this XmlAttribute xmlAttribute, string defaultValue = default)
+    public static string GetValueOrDefault(this XmlAttributeCollection xmlAttributeCollection, string attributeName, string defaultValue = default)
     {
+      var xmlAttribute = xmlAttributeCollection.OfType<XmlAttribute>().FirstOrDefault(x => string.Equals(attributeName, x.Name, StringComparison.OrdinalIgnoreCase));
       return xmlAttribute != null ? xmlAttribute.Value : defaultValue;
     }
   }

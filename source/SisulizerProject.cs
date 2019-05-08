@@ -21,11 +21,11 @@
         {
           var langRow = new LangRow
           {
-            Id = langNode.Attributes["id"].GetValueOrDefault(),
-            Date = langNode.Attributes["date"].GetValueOrDefault(),
-            Status = langNode.Attributes["status"].GetValueOrDefault(),
+            Id = langNode.Attributes.GetValueOrDefault("id"),
+            Date = langNode.Attributes.GetValueOrDefault("date"),
+            Status = langNode.Attributes.GetValueOrDefault("status"),
             Content = langNode.InnerText,
-            Invalidated = langNode.Attributes["Invalidated"].GetValueOrDefault() == "1",
+            Invalidated = langNode.Attributes.GetValueOrDefault("invalidated") == "1",
           };
           this.content.Add(context, langRow);
         }
@@ -54,11 +54,11 @@
       switch (xmlNode.Name)
       {
         case "source":
-          return parentContext + xmlNode.Attributes["name"].GetValueOrDefault();
+          return parentContext + xmlNode.Attributes.GetValueOrDefault("name");
         case "row":
-          return parentContext + xmlNode.Attributes["id"].GetValueOrDefault();
+          return parentContext + xmlNode.Attributes.GetValueOrDefault("id");
         case "node":
-          return parentContext + xmlNode.Attributes["name"].GetValueOrDefault();
+          return parentContext + xmlNode.Attributes.GetValueOrDefault("name");
       }
 
       return null;
